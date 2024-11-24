@@ -2,10 +2,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
     <item
         android:id="@+id/nav_progress"
+        android:icon="@drawable/check"
         android:title="Прогресс"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/nav_trophies"
+        android:icon="@drawable/trophy"
+        android:title="Трофеи"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/nav_rewards"
+        android:icon="@drawable/badge"
+        android:title="Награды"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/nav_health"
+        android:icon="@drawable/hospital"
+        android:title="Здоровье"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/nav_distraction"
+        android:icon="@drawable/console"
+        android:title="Отвлечение"
         app:showAsAction="ifRoom" />
 
 
