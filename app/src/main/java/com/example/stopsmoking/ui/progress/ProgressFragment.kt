@@ -1,5 +1,6 @@
 package com.example.stopsmoking.ui.progress
 
+import ProgressViewModel
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.stopsmoking.R
 import java.time.LocalDate
 import java.time.Period
@@ -20,6 +22,7 @@ class ProgressFragment : Fragment() {
     private lateinit var tvMoneySaved: TextView
     private lateinit var tvLifeSaved: TextView
     private lateinit var tvTip: TextView
+    private val progressViewModel: ProgressViewModel by activityViewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -41,11 +44,10 @@ class ProgressFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateProgress() {
-        // Примерные данные. Замените на данные от пользователя.
-        val quitDate = LocalDate.of(2024, 11, 1) // Дата отказа от курения
+        val quitDate = LocalDate.of(2024, 11, 1) // Пример: дата отказа от курения
         val daysWithoutSmoking = Period.between(quitDate, LocalDate.now()).days
         val cigarettesAvoided = daysWithoutSmoking * 20
-        val moneySaved = cigarettesAvoided * 10 // Цена одной сигареты, допустим, 10 рублей
+        val moneySaved = cigarettesAvoided * 120 // Цена одной сигареты, допустим, 10 рублей
         val lifeSavedMinutes = cigarettesAvoided * 11 // Пример: 11 минут жизни на сигарету
 
         // Устанавливаем данные
@@ -53,6 +55,9 @@ class ProgressFragment : Fragment() {
         tvCigarettesAvoided.text = "Не выкурено сигарет: $cigarettesAvoided"
         tvMoneySaved.text = "Сэкономлено денег: $moneySaved руб."
         tvLifeSaved.text = "Сохранено времени жизни: $lifeSavedMinutes минут"
+
+        // Обновляем баланс
+        progressViewModel.setProgressBalance(moneySaved)
 
         // Мотивационный совет
         val tips = listOf(
