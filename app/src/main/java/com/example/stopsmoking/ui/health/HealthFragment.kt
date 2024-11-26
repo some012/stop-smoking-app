@@ -31,7 +31,7 @@ class HealthFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateHealthStatus() {
-        val quitDate = LocalDate.of(2024, 11, 1)
+        val quitDate = getQuitDate()
         val hoursSinceQuit = ChronoUnit.HOURS.between(quitDate.atStartOfDay(), LocalDateTime.now())
 
         val healthMilestones = listOf(
@@ -39,7 +39,13 @@ class HealthFragment : Fragment() {
             Pair(8, "8 часов: Уровень кислорода в крови приходит в норму."),
             Pair(24, "24 часа: Риск сердечного приступа снижен."),
             Pair(48, "48 часов: Возвращается вкус и запах."),
-            Pair(72, "72 часа: Дыхание становится легче.")
+            Pair(72, "72 часа: Дыхание становится легче."),
+            Pair(1 * 7 * 24, "1 неделя: Уровень угарного газа в организме нормализуется."),
+            Pair(2 * 7 * 24, "2 недели: Улучшается циркуляция крови и функция легких."),
+            Pair(1 * 30 * 24, "1 месяц: Снижается риск развития заболеваний сердца."),
+            Pair(3 * 30 * 24, "3 месяца: Дыхательная функция значительно улучшается."),
+            Pair(6 * 30 * 24, "6 месяцев: Улучшается состояние кожи и волос."),
+            Pair(1 * 365 * 24, "1 год: Риск сердечных заболеваний уменьшается на 50%.")
         )
 
         val status = healthMilestones
@@ -47,5 +53,17 @@ class HealthFragment : Fragment() {
             .joinToString("\n") { it.second }
 
         tvHealthStatus.text = status.ifEmpty { "Ваше здоровье улучшается!" }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getQuitDate(): LocalDate {
+        val sharedPreferences = requireContext().getSharedPreferences("StopSmokingPrefs", 0)
+        val quitDateString = sharedPreferences.getString("quitDate", null)
+        return if (quitDateString != null) {
+            LocalDate.parse(quitDateString)
+        } else {
+            LocalDate.now()
+        }
     }
 }

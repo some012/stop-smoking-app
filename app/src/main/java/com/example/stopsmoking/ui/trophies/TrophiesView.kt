@@ -28,9 +28,12 @@ class TrophiesViewModel : ViewModel() {
         )
 
         // Добавляем достижения на основе сэкономленных денег
+        if (moneySaved >= 500) achievements.add("Сэкономлено 500 рублей")
         if (moneySaved >= 1000) achievements.add("Сэкономлено 1000 рублей")
         if (moneySaved >= 5000) achievements.add("Сэкономлено 5000 рублей")
         if (moneySaved >= 10000) achievements.add("Сэкономлено 10000 рублей")
+        if (moneySaved >= 20000) achievements.add("Сэкономлено 20000 рублей") // Дополнительное достижение
+        if (moneySaved >= 50000) achievements.add("Сэкономлено 50000 рублей") // Дополнительное достижение
 
         // Устанавливаем обновленный список
         _trophies.value = achievements

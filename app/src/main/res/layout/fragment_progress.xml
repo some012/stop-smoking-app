@@ -49,11 +49,39 @@
             android:textSize="18sp"
             android:paddingBottom="8dp"/>
 
+        <EditText
+            android:id="@+id/et_price_per_cigarette"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Цена одной сигареты"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/et_cigarettes_per_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Количество сигарет в день"
+            android:inputType="number"/>
+
+        <Button
+            android:id="@+id/btn_set_quit_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Установить дату" />
+
+        <Button
+            android:id="@+id/btn_reset_quit_date"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Сбросить" />
+
         <TextView
             android:id="@+id/tv_tip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Совет: Вы можете это сделать!"
+            android:text="Вы можете это сделать!"
             android:textSize="16sp"
             android:paddingTop="16dp"/>
     </LinearLayout>

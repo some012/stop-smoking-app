@@ -59,4 +59,5 @@ class RewardsViewModel : ViewModel() {
         val rewardsSet = sharedPreferences.getStringSet("rewards", emptySet()) ?: emptySet()
         _rewards.value = rewardsSet.toMutableList()
     }
+
 }
