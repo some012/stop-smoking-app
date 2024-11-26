@@ -41,13 +41,12 @@
         android:layout_marginEnd="20dp"
         android:text="Сбросить"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rewardsRecyclerView"
+    <ListView
+        android:id="@+id/rewardsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"/>
 
 
 </LinearLayout>

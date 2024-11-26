@@ -1,13 +1,13 @@
 package com.example.stopsmoking
 
+import RewardsFragment
+import TrophiesFragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.stopsmoking.ui.distraction.DistractionFragment
 import com.example.stopsmoking.ui.health.HealthFragment
 import com.example.stopsmoking.ui.progress.ProgressFragment
-import com.example.stopsmoking.ui.rewards.RewardsFragment
-import com.example.stopsmoking.ui.trophies.TrophiesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

@@ -17,11 +17,12 @@
             android:gravity="center"
             android:paddingBottom="8dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trophiesRecyclerView"
+        <ListView
+            android:id="@+id/trophiesListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"/>
+            android:layout_height="match_parent"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"/>
 
     </LinearLayout>
 
