@@ -38,8 +38,6 @@ class HealthFragment : Fragment() {
         val hoursSinceQuit = ChronoUnit.HOURS.between(quitDate.atStartOfDay(), LocalDateTime.now())
 
         val healthMilestones = listOf(
-            Pair(0, "20 минут: Давление и пульс нормализуются."),
-            Pair(8, "8 часов: Уровень кислорода в крови приходит в норму."),
             Pair(24, "24 часа: Риск сердечного приступа снижен."),
             Pair(48, "48 часов: Возвращается вкус и запах."),
             Pair(72, "72 часа: Дыхание становится легче."),

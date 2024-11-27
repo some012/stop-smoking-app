@@ -22,7 +22,6 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:textColor="#2C3E50"
             android:paddingBottom="8dp"/>
 
         <!-- Tip TextView -->

@@ -20,12 +20,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="16dp"
                 android:text="Прогресс"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textColor="#2C3E50"
-                android:paddingBottom="16dp" />
+                android:textStyle="bold" />
 
             <!-- Статистика -->
             <androidx.cardview.widget.CardView

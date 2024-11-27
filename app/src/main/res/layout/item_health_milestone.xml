@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Достижение"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#34495E"/>
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

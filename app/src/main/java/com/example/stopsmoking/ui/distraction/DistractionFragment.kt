@@ -65,8 +65,8 @@ class DistractionFragment : Fragment() {
         if (isProcessing || gameState[index] is CardState.Revealed) return
 
         // Animate the card opening
-        val scaleX = ObjectAnimator.ofFloat(button, "scaleX", 0.3f, 1f)
-        val scaleY = ObjectAnimator.ofFloat(button, "scaleY", 0.3f, 0.5f)
+        val scaleX = ObjectAnimator.ofFloat(button, "scaleX", 0.3f, 0.6f)
+        val scaleY = ObjectAnimator.ofFloat(button, "scaleY", 0.2f, 0.3f)
         scaleX.duration = 200
         scaleY.duration = 200
         scaleX.start()
@@ -127,6 +127,6 @@ class DistractionFragment : Fragment() {
                 // Все пары найдены
                 Toast.makeText(requireContext(), "Вы выиграли!", Toast.LENGTH_LONG).show()
             }
-        }, 500) // Задержка на 1 секунду перед закрытием/оставлением карт
+        }, 500) // Задержка перед закрытием/оставлением карт
     }
 }

@@ -14,8 +14,6 @@ class TrophiesViewModel : ViewModel() {
         Pair(90, "3 месяца без курения"),
         Pair(180, "6 месяцев без курения"),
         Pair(365, "1 год без курения"),
-        Pair(1000, "1000 дней без курения"),
-        Pair(5000, "5000 дней без курения")
     )
 
     fun updateTrophies(daysWithoutSmoking: Int, moneySaved: Int) {
@@ -32,8 +30,8 @@ class TrophiesViewModel : ViewModel() {
         if (moneySaved >= 1000) achievements.add("Сэкономлено 1000 рублей")
         if (moneySaved >= 5000) achievements.add("Сэкономлено 5000 рублей")
         if (moneySaved >= 10000) achievements.add("Сэкономлено 10000 рублей")
-        if (moneySaved >= 20000) achievements.add("Сэкономлено 20000 рублей") // Дополнительное достижение
-        if (moneySaved >= 50000) achievements.add("Сэкономлено 50000 рублей") // Дополнительное достижение
+        if (moneySaved >= 20000) achievements.add("Сэкономлено 20000 рублей")
+        if (moneySaved >= 50000) achievements.add("Сэкономлено 50000 рублей")
 
         // Устанавливаем обновленный список
         _trophies.value = achievements

@@ -91,6 +91,7 @@ class ProgressFragment : Fragment() {
     }
 
     // Метод для сохранения данных и пересчета
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun saveInputAndRecalculate() {
         val rawPricePerCigarette = etPricePerCigarette.text.toString().toIntOrNull() ?: 10

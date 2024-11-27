@@ -18,17 +18,18 @@ class TrophiesFragment : Fragment() {
 
     // Карта достижений и изображений
     private val trophyImagesMap = mapOf(
-        "1 день без курения" to R.drawable.check,
-        "1 неделя без курения" to R.drawable.check,
-        "1 месяц без курения" to R.drawable.check,
-        "3 месяца без курения" to R.drawable.check,
-        "6 месяцев без курения" to R.drawable.check,
-        "1 год без курения" to R.drawable.check,
-        "1000 дней без курения" to R.drawable.check,
-        "5000 дней без курения" to R.drawable.check,
-        "Сэкономлено 1000 рублей" to R.drawable.check,
-        "Сэкономлено 5000 рублей" to R.drawable.check,
-        "Сэкономлено 10000 рублей" to R.drawable.check
+        "1 день без курения" to R.drawable.one_day,
+        "1 неделя без курения" to R.drawable.week,
+        "1 месяц без курения" to R.drawable.month,
+        "3 месяца без курения" to R.drawable.three,
+        "6 месяцев без курения" to R.drawable.six,
+        "1 год без курения" to R.drawable.year,
+        "Сэкономлено 500 рублей" to R.drawable._500,
+        "Сэкономлено 1000 рублей" to R.drawable._1000,
+        "Сэкономлено 5000 рублей" to R.drawable._5000,
+        "Сэкономлено 10000 рублей" to R.drawable._10000,
+        "Сэкономлено 20000 рублей" to R.drawable._20000,
+        "Сэкономлено 50000 рублей" to R.drawable._50000,
     )
 
     override fun onCreateView(
