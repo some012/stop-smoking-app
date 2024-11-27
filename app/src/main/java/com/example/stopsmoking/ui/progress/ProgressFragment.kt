@@ -6,6 +6,8 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +28,6 @@ class ProgressFragment : Fragment() {
     private lateinit var tvCigarettesAvoided: TextView
     private lateinit var tvMoneySaved: TextView
     private lateinit var tvLifeSaved: TextView
-    private lateinit var tvTip: TextView
     private lateinit var btnSetQuitDate: Button
     private lateinit var btnResetQuitDate: Button
     private lateinit var etPricePerCigarette: EditText
@@ -34,6 +35,7 @@ class ProgressFragment : Fragment() {
 
     private val progressViewModel: ProgressViewModel by activityViewModels()
     private val trophiesViewModel: TrophiesViewModel by activityViewModels()
+
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -48,18 +50,34 @@ class ProgressFragment : Fragment() {
         tvCigarettesAvoided = view.findViewById(R.id.tv_cigarettes_avoided)
         tvMoneySaved = view.findViewById(R.id.tv_money_saved)
         tvLifeSaved = view.findViewById(R.id.tv_life_saved)
-        tvTip = view.findViewById(R.id.tv_tip)
         btnSetQuitDate = view.findViewById(R.id.btn_set_quit_date)
         btnResetQuitDate = view.findViewById(R.id.btn_reset_quit_date)
 
         // Инициализация полей ввода
-        val etPricePerCigarette: EditText = view.findViewById(R.id.et_price_per_cigarette)
-        val etCigarettesPerDay: EditText = view.findViewById(R.id.et_cigarettes_per_day)
+        etPricePerCigarette = view.findViewById(R.id.et_price_per_cigarette)
+        etCigarettesPerDay = view.findViewById(R.id.et_cigarettes_per_day)
 
         // Заполнение полей данными из SharedPreferences (если есть)
         val (savedPrice, savedCigarettesPerDay) = getCigaretteData()
         etPricePerCigarette.setText(savedPrice.toString())
         etCigarettesPerDay.setText(savedCigarettesPerDay.toString())
+
+        // Слушатели для полей ввода
+        etPricePerCigarette.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                saveInputAndRecalculate()
+            }
+        })
+
+        etCigarettesPerDay.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                saveInputAndRecalculate()
+            }
+        })
 
         updateProgress()
 
@@ -72,6 +90,33 @@ class ProgressFragment : Fragment() {
         return view
     }
 
+    // Метод для сохранения данных и пересчета
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun saveInputAndRecalculate() {
+        val rawPricePerCigarette = etPricePerCigarette.text.toString().toIntOrNull() ?: 10
+        val rawCigarettesPerDay = etCigarettesPerDay.text.toString().toIntOrNull() ?: 20
+
+        // Ограничиваем значения в заданных пределах
+        val pricePerCigarette = rawPricePerCigarette.coerceIn(1, 100) // от 1 до 100 рублей
+        val cigarettesPerDay = rawCigarettesPerDay.coerceIn(1, 100) // от 1 до 100 сигарет в день
+
+        // Если введенное значение выходит за пределы, возвращаем корректное в поле ввода
+        if (rawPricePerCigarette != pricePerCigarette) {
+            etPricePerCigarette.setText(pricePerCigarette.toString())
+        }
+        if (rawCigarettesPerDay != cigarettesPerDay) {
+            etCigarettesPerDay.setText(cigarettesPerDay.toString())
+        }
+
+        // Сохраняем введенные данные
+        saveCigaretteData(pricePerCigarette, cigarettesPerDay)
+
+        // Обновляем отображение
+        updateProgress()
+    }
+
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showDatePickerDialog() {
         val currentDate = Calendar.getInstance()
@@ -82,12 +127,6 @@ class ProgressFragment : Fragment() {
         val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
             saveQuitDate(selectedDate)
-
-            // Сохранение данных о цене и количестве сигарет
-            val pricePerCigarette = etPricePerCigarette.text.toString().toIntOrNull() ?: 10
-            val cigarettesPerDay = etCigarettesPerDay.text.toString().toIntOrNull() ?: 20
-            saveCigaretteData(pricePerCigarette, cigarettesPerDay)
-
             updateProgress()
         }, year, month, day)
 
@@ -124,10 +163,12 @@ class ProgressFragment : Fragment() {
         return Pair(pricePerCigarette, cigarettesPerDay)
     }
 
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateProgress() {
         val quitDate = getQuitDate()
-        val daysWithoutSmoking = Period.between(quitDate, LocalDate.now()).days
+        val daysWithoutSmoking = java.time.temporal.ChronoUnit.DAYS.between(quitDate, LocalDate.now()).toInt()
 
         // Получаем данные о цене сигареты и количестве сигарет в день
         val (pricePerCigarette, cigarettesPerDay) = getCigaretteData()
@@ -143,32 +184,6 @@ class ProgressFragment : Fragment() {
         tvCigarettesAvoided.text = "Не выкурено сигарет: $cigarettesAvoided"
         tvMoneySaved.text = "Сэкономлено денег: $moneySaved руб."
         tvLifeSaved.text = "Сохранено времени жизни: $lifeSavedMinutes минут"
-
-        // Мотивационный совет
-        val tips = listOf(
-            "Вы становитесь лучше каждый день!",
-            "Подумайте, сколько вы уже сэкономили!",
-            "Ваше здоровье вас благодарит!",
-            "Каждый день без сигарет – это шаг к лучшей жизни.",
-            "Ваша сила воли впечатляет!",
-            "Подумайте о свободе, которую вы получили!",
-            "Ваши легкие дышат полной грудью.",
-            "Каждый вдох – это победа над зависимостью.",
-            "Ваши близкие гордятся вами!",
-            "Вы уже сэкономили деньги на что-то полезное!",
-            "Сегодня вы сделали важный шаг к здоровью.",
-            "С каждым днем ваше тело восстанавливается.",
-            "Ваш пример вдохновляет других.",
-            "Вы доказываете, что можете всё!",
-            "Помните, как много вы уже достигли!",
-            "Заботьтесь о себе – вы это заслужили!",
-            "Ваше сердце стало здоровее благодаря вам.",
-            "Ваша решимость – ваша суперсила.",
-            "Каждый день – это победа над прошлым.",
-            "Продолжайте идти вперед, вы на правильном пути!"
-        )
-
-        tvTip.text = tips.random()
 
         // Обновление достижений
         trophiesViewModel.updateTrophies(daysWithoutSmoking, moneySaved)

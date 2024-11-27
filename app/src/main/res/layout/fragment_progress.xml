@@ -1,88 +1,149 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Прогресс"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:paddingBottom="16dp"/>
+            android:orientation="vertical"
+            android:spacing="16dp">
 
-        <TextView
-            android:id="@+id/tv_days_without_smoking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Дней без курения: 0"
-            android:textSize="18sp"
-            android:paddingBottom="8dp"/>
+            <!-- Заголовок -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Прогресс"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#2C3E50"
+                android:paddingBottom="16dp" />
 
-        <TextView
-            android:id="@+id/tv_cigarettes_avoided"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Не выкурено сигарет: 0"
-            android:textSize="18sp"
-            android:paddingBottom="8dp"/>
+            <!-- Статистика -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginBottom="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_money_saved"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Сэкономлено денег: 0 руб."
-            android:textSize="18sp"
-            android:paddingBottom="8dp"/>
+                    <TextView
+                        android:id="@+id/tv_days_without_smoking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Дней без курения: 0"
+                        android:textSize="18sp"
+                        android:paddingBottom="8dp"
 
-        <TextView
-            android:id="@+id/tv_life_saved"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Сохранено времени жизни: 0 минут"
-            android:textSize="18sp"
-            android:paddingBottom="8dp"/>
+                        />
 
-        <EditText
-            android:id="@+id/et_price_per_cigarette"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Цена одной сигареты"
-            android:inputType="numberDecimal"/>
+                    <TextView
+                        android:id="@+id/tv_cigarettes_avoided"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Не выкурено сигарет: 0"
+                        android:textSize="18sp"
+                        android:paddingBottom="8dp" />
 
-        <EditText
-            android:id="@+id/et_cigarettes_per_day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Количество сигарет в день"
-            android:inputType="number"/>
+                    <TextView
+                        android:id="@+id/tv_money_saved"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Сэкономлено денег: 0 руб."
+                        android:textSize="18sp"
+                        android:paddingBottom="8dp" />
 
-        <Button
-            android:id="@+id/btn_set_quit_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Установить дату" />
+                    <TextView
+                        android:id="@+id/tv_life_saved"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Сохранено времени жизни: 0 минут"
+                        android:textSize="18sp"
+                        android:paddingBottom="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/btn_reset_quit_date"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Сбросить" />
+            <!-- Ввод данных -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginBottom="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_tip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Вы можете это сделать!"
-            android:textSize="16sp"
-            android:paddingTop="16dp"/>
-    </LinearLayout>
-</ScrollView>
+                    <EditText
+                        android:id="@+id/et_price_per_cigarette"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Цена одной сигареты"
+                        android:inputType="numberDecimal"
+                        android:textSize="16sp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/edittext_style"
+                        />
+
+                    <EditText
+                        android:id="@+id/et_cigarettes_per_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Количество сигарет в день"
+                        android:inputType="number"
+                        android:textSize="16sp"
+                        android:layout_margin="8dp"
+
+                        android:background="@drawable/edittext_style"
+                        />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Кнопки -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_set_quit_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Дата отказа"
+                    android:textSize="16sp"
+                    android:layout_margin="4dp"
+                    android:padding="12dp" />
+
+                <Button
+                    android:id="@+id/btn_reset_quit_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Сбросить"
+                    android:textSize="16sp"
+                    android:padding="12dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

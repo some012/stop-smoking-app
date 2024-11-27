@@ -38,7 +38,7 @@ class RewardsAdapter(private val rewards: MutableList<String>) :
     }
 
     inner class RewardsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val rewardTextView: TextView = itemView.findViewById(R.id.rewardTextView)
+        private val rewardTextView: TextView = itemView.findViewById(R.id.rewardInput)
 
         fun bind(reward: String) {
             rewardTextView.text = reward

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.stopsmoking.R
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -15,7 +17,7 @@ import java.time.temporal.ChronoUnit
 
 class HealthFragment : Fragment() {
 
-    private lateinit var tvHealthStatus: TextView
+    private lateinit var healthRecyclerView: RecyclerView
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -23,9 +25,10 @@ class HealthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_health, container, false)
-        tvHealthStatus = view.findViewById(R.id.tv_health_status)
+        healthRecyclerView = view.findViewById(R.id.healthRecyclerView)
 
         updateHealthStatus()
+
         return view
     }
 
@@ -48,13 +51,14 @@ class HealthFragment : Fragment() {
             Pair(1 * 365 * 24, "1 год: Риск сердечных заболеваний уменьшается на 50%.")
         )
 
-        val status = healthMilestones
+        val milestones = healthMilestones
             .filter { hoursSinceQuit >= it.first }
-            .joinToString("\n") { it.second }
+            .map { it.second }
 
-        tvHealthStatus.text = status.ifEmpty { "Ваше здоровье улучшается!" }
+        val adapter = HealthMilestonesAdapter(milestones)
+        healthRecyclerView.layoutManager = LinearLayoutManager(context)
+        healthRecyclerView.adapter = adapter
     }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getQuitDate(): LocalDate {

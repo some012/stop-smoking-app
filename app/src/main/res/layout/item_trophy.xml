@@ -4,14 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/trophyImage"
+        android:layout_width="77dp"
+        android:layout_height="56dp"
+        android:contentDescription="Описание"
+        android:padding="10dp"
+        android:src="@drawable/check"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/trophyTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="right"
         android:padding="16dp"
         android:textSize="16sp"
-        android:background="?attr/selectableItemBackground"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

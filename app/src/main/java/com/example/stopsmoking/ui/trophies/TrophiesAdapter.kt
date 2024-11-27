@@ -1,36 +1,34 @@
-package com.example.stopsmoking.ui.trophies
-
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.ArrayAdapter
 import com.example.stopsmoking.R
 
-class TrophiesAdapter(private var trophies: List<String>) :
-    RecyclerView.Adapter<TrophiesAdapter.TrophyViewHolder>() {
+class TrophiesListAdapter(
+    context: Context,
+    private var trophies: MutableList<String>,
+    private val trophyImagesMap: Map<String, Int>
+) : ArrayAdapter<String>(context, 0, trophies) {
 
-    class TrophyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val trophyTextView: TextView = itemView.findViewById(R.id.trophyTextView)
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_trophy, parent, false)
+
+        val trophyTextView = view.findViewById<TextView>(R.id.trophyTextView)
+        val trophyImageView = view.findViewById<ImageView>(R.id.trophyImage)
+
+        val trophy = trophies[position]
+        trophyTextView.text = trophy
+        trophyImageView.setImageResource(trophyImagesMap[trophy] ?: R.drawable.check)
+
+        return view
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrophyViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_trophy, parent, false)
-        return TrophyViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: TrophyViewHolder, position: Int) {
-        holder.trophyTextView.text = trophies[position]
-    }
-
-    override fun getItemCount(): Int = trophies.size
-
-    @SuppressLint("NotifyDataSetChanged")
     fun updateTrophies(newTrophies: List<String>) {
-        trophies = newTrophies
+        trophies.clear()
+        trophies.addAll(newTrophies)
         notifyDataSetChanged()
     }
 }
-
